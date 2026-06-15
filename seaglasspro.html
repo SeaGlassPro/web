@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SeaGlassPro — Consulting for DevSecOps</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── TOKENS ─────────────────────────────────────────────── */
+    :root {
+      --ocean-deep:   #0d2233;
+      --ocean-mid:    #1a4a6b;
+      --seafoam:      #7bbfb5;
+      --glass-sage:   #a8c5a0;
+      --glass-amber:  #c8a96e;
+      --glass-white:  #e8ede9;
+      --sand:         #f2ead8;
+      --ink:          #0d1a13;
+      --mist:         rgba(255,255,255,0.07);
+
+      --display:      'Cormorant Garamond', Georgia, serif;
+      --body:         'DM Sans', system-ui, sans-serif;
+
+      --max:          1140px;
+      --ease:         cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--body);
+      background: var(--ocean-deep);
+      color: var(--glass-white);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── HERO ───────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+    }
+
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://c8.alamy.com/comp/2GABF4A/marin-county-headlands-coastal-view-pacific-ocean-2GABF4A.jpg');
+      background-size: cover;
+      background-position: center 40%;
+      filter: brightness(0.45) saturate(0.8);
+      transform: scale(1.04);
+      transition: transform 8s var(--ease);
+    }
+    .hero:hover .hero__bg { transform: scale(1.0); }
+
+    /* Wave overlay at bottom */
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 180px;
+      background: linear-gradient(to top, var(--ocean-deep), transparent);
+      pointer-events: none;
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 2rem 6rem;
+      width: 100%;
+    }
+
+    .hero__eyebrow {
+      font-family: var(--body);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--seafoam);
+      margin-bottom: 1.2rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.3s var(--ease) forwards;
+    }
+
+    .hero__title {
+      font-family: var(--display);
+      font-size: clamp(3.2rem, 8vw, 7.5rem);
+      font-weight: 300;
+      line-height: 1.0;
+      letter-spacing: -0.01em;
+      color: #fff;
+      opacity: 0;
+      animation: fadeUp 1s 0.5s var(--ease) forwards;
+    }
+
+    .hero__title em {
+      font-style: italic;
+      color: var(--seafoam);
+    }
+
+    .hero__sub {
+      margin-top: 1.8rem;
+      font-size: 1.05rem;
+      font-weight: 300;
+      line-height: 1.65;
+      max-width: 560px;
+      color: rgba(255,255,255,0.72);
+      opacity: 0;
+      animation: fadeUp 1s 0.75s var(--ease) forwards;
+    }
+
+    .hero__cta {
+      margin-top: 2.4rem;
+      display: inline-block;
+      padding: 0.85rem 2.2rem;
+      border: 1px solid var(--seafoam);
+      color: var(--seafoam);
+      font-family: var(--body);
+      font-size: 0.82rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.25s, color 0.25s;
+      opacity: 0;
+      animation: fadeUp 1s 1s var(--ease) forwards;
+    }
+    .hero__cta:hover {
+      background: var(--seafoam);
+      color: var(--ocean-deep);
+    }
+
+    /* floating glass shards — purely decorative */
+    .shard {
+      position: absolute;
+      border-radius: 40% 60% 55% 45% / 50% 45% 55% 50%;
+      opacity: 0.12;
+      pointer-events: none;
+      animation: drift 12s infinite alternate var(--ease);
+    }
+    .shard--1 { width: 120px; height: 90px;  background: var(--seafoam);  top: 18%; right: 14%; animation-duration: 14s; }
+    .shard--2 { width: 70px;  height: 55px;  background: var(--glass-sage); top: 38%; right: 28%; animation-duration: 10s; animation-delay: -3s; }
+    .shard--3 { width: 95px;  height: 75px;  background: var(--glass-amber); top: 62%; right: 8%;  animation-duration: 16s; animation-delay: -6s; }
+
+    @keyframes drift {
+      from { transform: translateY(0px) rotate(-4deg); }
+      to   { transform: translateY(-22px) rotate(4deg); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── SECTION BASE ───────────────────────────────────────── */
+    section { position: relative; }
+
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .section-label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--seafoam);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: var(--display);
+      font-size: clamp(2rem, 4.5vw, 3.4rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: #fff;
+    }
+    .section-title em { font-style: italic; color: var(--seafoam); }
+
+    .divider {
+      width: 48px;
+      height: 1px;
+      background: var(--seafoam);
+      margin: 2rem 0;
+      opacity: 0.5;
+    }
+
+    /* ── THE METAPHOR ───────────────────────────────────────── */
+    .metaphor {
+      padding: 7rem 0 5rem;
+      background: var(--ocean-deep);
+    }
+
+    .metaphor__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      margin-top: 4rem;
+    }
+
+    .metaphor__img-wrap {
+      position: relative;
+    }
+
+    .metaphor__img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 2px;
+      display: block;
+    }
+
+    /* Signature element: a frosted glass pane overlay on the image */
+    .metaphor__glass-pane {
+      position: absolute;
+      bottom: -24px;
+      right: -24px;
+      width: 160px;
+      height: 110px;
+      background: linear-gradient(135deg, rgba(123,191,181,0.25), rgba(168,197,160,0.12));
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(123,191,181,0.3);
+      border-radius: 45% 55% 40% 60% / 50% 45% 55% 50%;
+    }
+
+    .metaphor__text p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.72);
+      margin-bottom: 1.4rem;
+    }
+
+    .metaphor__text p strong {
+      color: var(--glass-white);
+      font-weight: 500;
+    }
+
+    /* ── GLASS JOURNEY (The Process) ───────────────────────── */
+    .journey {
+      padding: 6rem 0;
+      background: linear-gradient(180deg, var(--ocean-deep) 0%, #0a1e2e 100%);
+    }
+
+    .journey__header { text-align: center; margin-bottom: 5rem; }
+
+    .journey__steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      position: relative;
+    }
+
+    /* connecting tide line */
+    .journey__steps::before {
+      content: '';
+      position: absolute;
+      top: 52px;
+      left: 12.5%;
+      right: 12.5%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--seafoam), var(--seafoam), var(--seafoam), transparent);
+      opacity: 0.25;
+    }
+
+    .step {
+      padding: 0 1.5rem;
+      text-align: center;
+    }
+
+    .step__shard {
+      width: 104px;
+      height: 80px;
+      margin: 0 auto 2rem;
+      border-radius: 40% 60% 55% 45% / 50% 45% 55% 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--display);
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: var(--ocean-deep);
+      position: relative;
+      transition: transform 0.3s var(--ease);
+    }
+    .step:hover .step__shard { transform: translateY(-6px) rotate(3deg); }
+
+    .step__shard--raw      { background: linear-gradient(135deg, #8bb8c4, #6a9db0); }
+    .step__shard--tumbling { background: linear-gradient(135deg, var(--seafoam), #5fa89e); }
+    .step__shard--forming  { background: linear-gradient(135deg, var(--glass-sage), #82a87a); }
+    .step__shard--polished { background: linear-gradient(135deg, var(--glass-amber), #b08a44); }
+
+    .step__num {
+      position: absolute;
+      top: -10px; right: -10px;
+      font-family: var(--body);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: var(--seafoam);
+      background: var(--ocean-deep);
+      border: 1px solid rgba(123,191,181,0.3);
+      border-radius: 50%;
+      width: 26px; height: 26px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .step__title {
+      font-family: var(--display);
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 0.8rem;
+    }
+
+    .step__body {
+      font-size: 0.88rem;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* ── WHO I WORK WITH ────────────────────────────────────── */
+    .clients {
+      padding: 6rem 0;
+      background: #0a1e2e;
+    }
+
+    .clients__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      margin-top: 4rem;
+      border: 1px solid rgba(123,191,181,0.12);
+    }
+
+    .client-type {
+      padding: 3rem 2.4rem;
+      border: 1px solid rgba(123,191,181,0.08);
+      transition: background 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .client-type::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--seafoam), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .client-type:hover { background: var(--mist); }
+    .client-type:hover::before { opacity: 1; }
+
+    .client-type__glass {
+      width: 56px;
+      height: 44px;
+      border-radius: 40% 60% 55% 45% / 50% 45% 55% 50%;
+      margin-bottom: 1.5rem;
+    }
+
+    .client-type__title {
+      font-family: var(--display);
+      font-size: 1.35rem;
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 0.8rem;
+    }
+
+    .client-type__desc {
+      font-size: 0.88rem;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.58);
+    }
+
+    /* ── EXPERIENCE STRIP ───────────────────────────────────── */
+    .experience {
+      padding: 6rem 0;
+      background: var(--ocean-deep);
+    }
+
+    .experience__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .experience__img {
+      width: 100%;
+      aspect-ratio: 3/2;
+      object-fit: cover;
+      border-radius: 2px;
+      filter: saturate(0.7) brightness(0.75);
+    }
+
+    .exp-list {
+      list-style: none;
+      margin-top: 2.5rem;
+    }
+    .exp-list li {
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.68);
+      line-height: 1.6;
+    }
+    .exp-list li:first-child { border-top: 1px solid rgba(255,255,255,0.07); }
+
+    .exp-list__icon {
+      flex-shrink: 0;
+      width: 28px;
+      height: 22px;
+      border-radius: 40% 60% 55% 45% / 50% 45% 55% 50%;
+      background: linear-gradient(135deg, var(--seafoam), var(--glass-sage));
+      opacity: 0.8;
+      margin-top: 2px;
+    }
+
+    .exp-list__label {
+      font-weight: 500;
+      color: #fff;
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+
+    /* ── VOICES (Recommendations) ───────────────────────────── */
+    .voices {
+      padding: 6rem 0;
+      background: linear-gradient(180deg, #0a1e2e 0%, var(--ocean-deep) 100%);
+      overflow: hidden;
+    }
+
+    .voices__header { text-align: center; margin-bottom: 4rem; }
+
+    .voices__track {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .voice {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(123,191,181,0.12);
+      padding: 2.4rem;
+      border-radius: 2px;
+      position: relative;
+    }
+
+    .voice__mark {
+      font-family: var(--display);
+      font-size: 4rem;
+      line-height: 0.8;
+      color: var(--seafoam);
+      opacity: 0.25;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .voice__text {
+      font-family: var(--display);
+      font-size: 1.05rem;
+      font-style: italic;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 1.5rem;
+    }
+
+    .voice__attr {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--seafoam);
+      text-transform: uppercase;
+    }
+
+    .voice__role {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.4);
+      margin-top: 0.2rem;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    /* ── INDUSTRIES ─────────────────────────────────────────── */
+    .industries {
+      padding: 5rem 0;
+      background: var(--ocean-deep);
+      border-top: 1px solid rgba(123,191,181,0.1);
+    }
+
+    .industries__label {
+      text-align: center;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 2.5rem;
+    }
+
+    .industries__row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.6rem 1.2rem;
+    }
+
+    .industry-tag {
+      font-size: 0.8rem;
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.45);
+      padding: 0.4rem 1rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .industry-tag:hover {
+      color: var(--seafoam);
+      border-color: rgba(123,191,181,0.4);
+    }
+
+    /* ── CONTACT ────────────────────────────────────────────── */
+    .contact {
+      padding: 8rem 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://c8.alamy.com/comp/2H3MW6R/wave-crashing-against-rocks-in-northern-california-2H3MW6R.jpg');
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.25) saturate(0.6);
+    }
+
+    .contact__content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .contact__title {
+      font-family: var(--display);
+      font-size: clamp(2.4rem, 5vw, 4.5rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: #fff;
+      margin-bottom: 1.5rem;
+    }
+    .contact__title em { font-style: italic; color: var(--seafoam); }
+
+    .contact__body {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.6);
+      max-width: 480px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+    }
+
+    .contact__link {
+      display: inline-block;
+      padding: 1rem 2.8rem;
+      background: var(--seafoam);
+      color: var(--ocean-deep);
+      font-family: var(--body);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.25s, transform 0.2s;
+    }
+    .contact__link:hover {
+      background: var(--glass-white);
+      transform: translateY(-2px);
+    }
+
+    /* ── FOOTER ─────────────────────────────────────────────── */
+    footer {
+      background: #050f18;
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .metaphor__grid,
+      .experience__inner { grid-template-columns: 1fr; gap: 3rem; }
+      .journey__steps { grid-template-columns: repeat(2, 1fr); gap: 3rem; }
+      .journey__steps::before { display: none; }
+      .clients__grid { grid-template-columns: 1fr; }
+      .voices__track { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .journey__steps { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .shard, .hero__bg { animation: none; transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── HERO ──────────────────────────────────────────────────── -->
+<section class="hero" aria-label="Hero">
+  <div class="hero__bg" aria-hidden="true"></div>
+
+  <div class="shard shard--1" aria-hidden="true"></div>
+  <div class="shard shard--2" aria-hidden="true"></div>
+  <div class="shard shard--3" aria-hidden="true"></div>
+
+  <div class="hero__content">
+    <span class="hero__eyebrow">SeaGlassPro · SF Bay Area · Consulting</span>
+    <h1 class="hero__title">
+      Every piece of glass<br>has a <em>story.</em><br>So does your stack.
+    </h1>
+    <p class="hero__sub">
+      The ocean doesn't rush the process. Twenty years of pressure, experience, and tidal momentum — applied to your DevSecOps challenges — until the edges are smooth and the solution is something worth keeping.
+    </p>
+    <a href="#contact" class="hero__cta">Start the Tumble</a>
+  </div>
+</section>
+
+<!-- ── THE METAPHOR ───────────────────────────────────────────── -->
+<section class="metaphor" id="about" aria-label="About">
+  <div class="wrap">
+    <div class="metaphor__grid">
+      <div class="metaphor__img-wrap">
+        <img
+          class="metaphor__img"
+          src="https://i.pinimg.com/originals/a8/0c/14/a80c14e0f25d45d0e23b5b59c9e14a9f.jpg"
+          alt="Colorful sea glass pieces collected on a California beach"
+          loading="lazy"
+        />
+        <div class="metaphor__glass-pane" aria-hidden="true"></div>
+      </div>
+
+      <div class="metaphor__text">
+        <span class="section-label">The philosophy</span>
+        <h2 class="section-title">Raw edges become<br><em>rare finds</em></h2>
+        <div class="divider"></div>
+        <p>
+          Sea glass starts as something broken — discarded, sharp, ordinary. The ocean takes over: grinding it against sand and rock, turning it in the current, smoothing every jagged edge over years of patient work. What washes ashore is something transformed, worth finding, worth keeping.
+        </p>
+        <p>
+          <strong>Your infrastructure challenge is no different.</strong> A legacy codebase sprawling across 200 microservices. A CI/CD pipeline held together by tribal knowledge. An LLM adoption initiative without guardrails. These aren't failures — they're raw material.
+        </p>
+        <p>
+          SeaGlassPro brings 20+ years of tidal pressure across fintech, healthcare, media, and SaaS to turn your rough spots into polished, production-ready solutions. The ocean doesn't give up on the glass. Neither do I.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── THE JOURNEY (Process) ─────────────────────────────────── -->
+<section class="journey" id="process" aria-label="Process">
+  <div class="wrap">
+    <div class="journey__header">
+      <span class="section-label">The process</span>
+      <h2 class="section-title">How the ocean works — <em>and how I work</em></h2>
+    </div>
+
+    <div class="journey__steps">
+
+      <div class="step">
+        <div class="step__shard step__shard--raw" aria-hidden="true">
+          <span class="step__num">01</span>
+          ☁
+        </div>
+        <h3 class="step__title">Washed Ashore</h3>
+        <p class="step__body">
+          Every engagement starts with discovery. I dive into your stack, your team's pain points, your deployment cadence. No assumptions — just listening. Like glass arriving on the beach, every situation is unique.
+        </p>
+      </div>
+
+      <div class="step">
+        <div class="step__shard step__shard--tumbling" aria-hidden="true">
+          <span class="step__num">02</span>
+          ⚙
+        </div>
+        <h3 class="step__title">Into the Tumble</h3>
+        <p class="step__body">
+          Terraform. Kubernetes. GitLab CI. EKS. The tools are the tide — constant, relentless, precise. I apply IaC improvements, streamline pipelines, and start reducing that version sprawl. The tumbling begins.
+        </p>
+      </div>
+
+      <div class="step">
+        <div class="step__shard step__shard--forming" aria-hidden="true">
+          <span class="step__num">03</span>
+          ◈
+        </div>
+        <h3 class="step__title">Taking Shape</h3>
+        <p class="step__body">
+          Patterns emerge. Golden paths solidify. Whether it's collapsing 30 language versions to 4 or designing LLM governance guardrails, the rough edges start to smooth into something recognizable and reliable.
+        </p>
+      </div>
+
+      <div class="step">
+        <div class="step__shard step__shard--polished" aria-hidden="true">
+          <span class="step__num">04</span>
+          ✦
+        </div>
+        <h3 class="step__title">Polished & Kept</h3>
+        <p class="step__body">
+          The result is infrastructure worth keeping. Documented, transferable, resilient. Your team owns it. The ocean's work is done — and what's left is something genuinely rare: a system you're proud of.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── WHO I WORK WITH ────────────────────────────────────────── -->
+<section class="clients" id="clients" aria-label="Clients">
+  <div class="wrap">
+    <span class="section-label">Who I work with</span>
+    <h2 class="section-title">Every piece of glass<br>arrives <em>differently</em></h2>
+    <div class="divider"></div>
+
+    <div class="clients__grid">
+
+      <div class="client-type">
+        <div class="client-type__glass" style="background: linear-gradient(135deg, #7bbfb5, #5fa89e);" aria-hidden="true"></div>
+        <h3 class="client-type__title">The Sharp Shard</h3>
+        <p class="client-type__desc">
+          You're moving fast — a startup or scale-up with real infrastructure debt accumulating under rapid growth. Your CI is flaky, your Terraform is unreviewed, and the next hire needs a platform that actually works. I come in and build the foundation while you keep shipping.
+        </p>
+      </div>
+
+      <div class="client-type">
+        <div class="client-type__glass" style="background: linear-gradient(135deg, #a8c5a0, #82a87a);" aria-hidden="true"></div>
+        <h3 class="client-type__title">The Legacy Piece</h3>
+        <p class="client-type__desc">
+          You have a 10- or 20-year-old system — sprawling microservices, inconsistent build tooling, monitoring bolted on as an afterthought. Nobody touches it without flinching. I've been here before. At Prosper I consolidated 200+ services across 30 language versions. Your legacy is my baseline.
+        </p>
+      </div>
+
+      <div class="client-type">
+        <div class="client-type__glass" style="background: linear-gradient(135deg, #c8a96e, #b08a44);" aria-hidden="true"></div>
+        <h3 class="client-type__title">The Rare Color</h3>
+        <p class="client-type__desc">
+          You're doing something genuinely new — building an LLM adoption framework, exploring agentic tooling, or navigating multi-cloud feasibility. You need someone who's already been in the water. GenAI governance, RCA automation, observability strategy — I bring the map.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── EXPERIENCE ─────────────────────────────────────────────── -->
+<section class="experience" id="experience" aria-label="Experience">
+  <div class="wrap">
+    <div class="experience__inner">
+      <div>
+        <span class="section-label">20+ years in the water</span>
+        <h2 class="section-title">The tide that shaped<br>these <em>hands</em></h2>
+        <div class="divider"></div>
+        <ul class="exp-list">
+          <li>
+            <div class="exp-list__icon" aria-hidden="true"></div>
+            <div>
+              <span class="exp-list__label">LLM Governance & GenAI Adoption</span>
+              Designed guardrails and onboarding frameworks for LLM prototyping at Prosper Marketplace. Built automated RCA systems using AI to speed up incident resolution.
+            </div>
+          </li>
+          <li>
+            <div class="exp-list__icon" aria-hidden="true"></div>
+            <div>
+              <span class="exp-list__label">Microservice Codebase Consolidation</span>
+              Drove 200+ microservices from 30 language versions down to 4 golden paths, collapsing 7 library pipeline versions to 1 — rolled out across all repos.
+            </div>
+          </li>
+          <li>
+            <div class="exp-list__icon" aria-hidden="true"></div>
+            <div>
+              <span class="exp-list__label">Cloud Infrastructure & IaC</span>
+              Terraform, AWS EKS/ECS/CDK/CloudFormation across fintech, healthcare, and SaaS — built for reliability, owned by the team that uses it.
+            </div>
+          </li>
+          <li>
+            <div class="exp-list__icon" aria-hidden="true"></div>
+            <div>
+              <span class="exp-list__label">Observability & Incident Response</span>
+              Grafana, ELK, PagerDuty — built monitoring that finds problems before humans do. Deep experience with postmortem culture and RCA acceleration.
+            </div>
+          </li>
+          <li>
+            <div class="exp-list__icon" aria-hidden="true"></div>
+            <div>
+              <span class="exp-list__label">CI/CD & Developer Experience</span>
+              CircleCI, GitLab CI, Jenkins, CodeBuild — designed pipelines from scratch and rebuilt broken ones. Agile process repair included.
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <img
+          class="experience__img"
+          src="https://c8.alamy.com/comp/2H3FMAM/pacific-ocean-washes-onto-rocks-in-northern-california-2H3FMAM.jpg"
+          alt="Pacific ocean waves washing over Northern California rocks"
+          loading="lazy"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── VOICES ─────────────────────────────────────────────────── -->
+<section class="voices" id="voices" aria-label="Recommendations">
+  <div class="wrap">
+    <div class="voices__header">
+      <span class="section-label">What people say</span>
+      <h2 class="section-title">The glass speaks for <em>itself</em></h2>
+    </div>
+
+    <div class="voices__track">
+
+      <div class="voice">
+        <span class="voice__mark" aria-hidden="true">"</span>
+        <p class="voice__text">
+          It's rare to find someone who manages to keep deployment velocity high while actually caring about the security guardrails. Jason consistently made it look easy. His ability to deliver resilient infrastructure under pressure is exceptional.
+        </p>
+        <span class="voice__attr">
+          Libin Babu
+          <span class="voice__role">Staff Security Engineer · Prosper Marketplace</span>
+        </span>
+      </div>
+
+      <div class="voice">
+        <span class="voice__mark" aria-hidden="true">"</span>
+        <p class="voice__text">
+          Brody was one of the key people pushing GenAI adoption forward — not just in theory but in practice. Sharp mind, responsible, and genuinely responsive. Someone who holds a high bar for quality without making it feel heavy.
+        </p>
+        <span class="voice__attr">
+          Siarhei Holub
+          <span class="voice__role">Staff Software Engineer, GenAI & ML · Prosper Marketplace</span>
+        </span>
+      </div>
+
+      <div class="voice">
+        <span class="voice__mark" aria-hidden="true">"</span>
+        <p class="voice__text">
+          He pushes the envelope on infrastructure automation and has high standards for complete, durable solutions. His intellectual curiosity and big-picture thinking are great assets. Always ready to challenge assumptions and help the team evolve.
+        </p>
+        <span class="voice__attr">
+          Thomas Boyles
+          <span class="voice__role">Engineer · One Medical</span>
+        </span>
+      </div>
+
+      <div class="voice">
+        <span class="voice__mark" aria-hidden="true">"</span>
+        <p class="voice__text">
+          Brody went beyond just fixing a problem — he took the time to mentor me on best practices and showed me how to troubleshoot on my own. A supportive, knowledgeable engineer who significantly improves the workflow of the teams around him.
+        </p>
+        <span class="voice__attr">
+          Amy Clark
+          <span class="voice__role">Analytics Engineer · Prosper Marketplace</span>
+        </span>
+      </div>
+
+      <div class="voice">
+        <span class="voice__mark" aria-hidden="true">"</span>
+        <p class="voice__text">
+          There are few things in the SRE world that he doesn't have deep knowledge and experience of. Having him on our team levelled us up. Working with him is a daily pleasure.
+        </p>
+        <span class="voice__attr">
+          Juan Beltran
+          <span class="voice__role">SRE / FinOps / DevOps Engineer</span>
+        </span>
+      </div>
+
+      <div class="voice">
+        <span class="voice__mark" aria-hidden="true">"</span>
+        <p class="voice__text">
+          A single word to describe Brody: passion. He is more passionate about systems engineering than anyone I have worked with. He will drive any organization with determination and isn't afraid to ask the tough questions.
+        </p>
+        <span class="voice__attr">
+          Matthew Jackowski
+          <span class="voice__role">Director of Localization · eBay</span>
+        </span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── INDUSTRIES ─────────────────────────────────────────────── -->
+<section class="industries" aria-label="Industries">
+  <div class="wrap">
+    <p class="industries__label">Industries navigated</p>
+    <div class="industries__row">
+      <span class="industry-tag">Fintech</span>
+      <span class="industry-tag">Healthcare Technology</span>
+      <span class="industry-tag">SaaS / PaaS</span>
+      <span class="industry-tag">Media & VFX</span>
+      <span class="industry-tag">Social Games</span>
+      <span class="industry-tag">Mobile</span>
+      <span class="industry-tag">Enterprise Infrastructure</span>
+      <span class="industry-tag">Carbon / Sustainability</span>
+      <span class="industry-tag">Sports Social Media</span>
+      <span class="industry-tag">Call Center Platforms</span>
+      <span class="industry-tag">Search & Discovery</span>
+      <span class="industry-tag">E-Foil Instruction</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ────────────────────────────────────────────────── -->
+<section class="contact" id="contact" aria-label="Contact">
+  <div class="contact__bg" aria-hidden="true"></div>
+  <div class="wrap contact__content">
+    <h2 class="contact__title">
+      Ready to let the<br>ocean do its work?
+    </h2>
+    <p class="contact__body">
+      Bring me your rough edges — the legacy sprawl, the broken pipeline, the GenAI initiative without a map. Let's find out what's worth keeping.
+    </p>
+    <a href="mailto:brodytwo@gmail.com" class="contact__link">Get in Touch</a>
+    <p style="margin-top: 2rem; font-size: 0.8rem; color: rgba(255,255,255,0.35); letter-spacing: 0.06em;">
+      linkedin.com/in/jbbss &nbsp;·&nbsp; Novato, California
+    </p>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────── -->
+<footer>
+  © 2026 SeaGlassPro · Brody (Jason Brody-Stewart-Stroeh) · SF Bay Area
+</footer>
+
+</body>
+</html>
