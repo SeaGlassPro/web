@@ -53,23 +53,50 @@
     .hero__bg {
       position: absolute;
       inset: 0;
-      background-image: url('https://c8.alamy.com/comp/2GABF4A/marin-county-headlands-coastal-view-pacific-ocean-2GABF4A.jpg');
+      background-image:
+        linear-gradient(160deg, rgba(13,34,51,0.55) 0%, rgba(10,20,32,0.3) 50%, rgba(13,34,51,0.75) 100%),
+        url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Sunset_over_Blind_Beach_and_Goat_Rock_in_the_Sonoma_Coast_State_Park%2C_California%2C_USA_%2814214207948%29.jpg/1280px-Sunset_over_Blind_Beach_and_Goat_Rock_in_the_Sonoma_Coast_State_Park%2C_California%2C_USA_%2814214207948%29.jpg');
       background-size: cover;
-      background-position: center 40%;
-      filter: brightness(0.45) saturate(0.8);
+      background-position: center 55%;
       transform: scale(1.04);
       transition: transform 8s var(--ease);
     }
     .hero:hover .hero__bg { transform: scale(1.0); }
 
-    /* Wave overlay at bottom */
+    /* Fallback gradient if image fails to load */
+    .hero__bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg,
+        #0d2233 0%,
+        #0f3249 25%,
+        #0d4a5e 50%,
+        #0a3040 75%,
+        #071520 100%);
+      z-index: -1;
+    }
+
+    /* Vignette top */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 220px;
+      background: linear-gradient(to bottom, rgba(7,21,32,0.65), transparent);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Wave fade at bottom */
     .hero::after {
       content: '';
       position: absolute;
       bottom: 0; left: 0; right: 0;
-      height: 180px;
-      background: linear-gradient(to top, var(--ocean-deep), transparent);
+      height: 280px;
+      background: linear-gradient(to top, var(--ocean-deep) 15%, rgba(13,34,51,0.55) 65%, transparent);
       pointer-events: none;
+      z-index: 1;
     }
 
     .hero__content {
@@ -550,10 +577,12 @@
     .contact__bg {
       position: absolute;
       inset: 0;
-      background-image: url('https://c8.alamy.com/comp/2H3MW6R/wave-crashing-against-rocks-in-northern-california-2H3MW6R.jpg');
+      background:
+        linear-gradient(180deg, rgba(7,21,32,0.82) 0%, rgba(7,21,32,0.6) 40%, rgba(7,21,32,0.88) 100%),
+        url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Sunset_over_Blind_Beach_and_Goat_Rock_in_the_Sonoma_Coast_State_Park%2C_California%2C_USA_%2814214207948%29.jpg/1280px-Sunset_over_Blind_Beach_and_Goat_Rock_in_the_Sonoma_Coast_State_Park%2C_California%2C_USA_%2814214207948%29.jpg');
       background-size: cover;
-      background-position: center;
-      filter: brightness(0.25) saturate(0.6);
+      background-position: center 30%;
+      filter: saturate(0.7) brightness(0.6);
     }
 
     .contact__content {
@@ -636,6 +665,41 @@
   <div class="shard shard--2" aria-hidden="true"></div>
   <div class="shard shard--3" aria-hidden="true"></div>
 
+  <!-- NAV -->
+  <nav style="
+    position: absolute; top: 0; left: 0; right: 0; z-index: 10;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.8rem 2.5rem;
+    max-width: 1140px; margin: 0 auto; left: 50%; transform: translateX(-50%);
+    width: 100%;
+  " aria-label="Site navigation">
+    <a href="#" style="
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.25rem; font-weight: 400; letter-spacing: 0.08em;
+      color: #fff; text-decoration: none;
+      display: flex; align-items: center; gap: 0.6rem;
+    ">
+      <span style="
+        display: inline-block; width: 28px; height: 22px;
+        background: linear-gradient(135deg, #7bbfb5, #a8c5a0);
+        border-radius: 40% 60% 55% 45% / 50% 45% 55% 50%;
+        opacity: 0.9;
+      " aria-hidden="true"></span>
+      SeaGlassPro
+    </a>
+    <div style="display: flex; gap: 2rem; align-items: center;">
+      <a href="#about"      style="font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.65); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#7bbfb5'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">About</a>
+      <a href="#process"    style="font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.65); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#7bbfb5'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">Process</a>
+      <a href="#experience" style="font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.65); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#7bbfb5'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">Experience</a>
+      <a href="#contact" style="
+        font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+        color: #7bbfb5; text-decoration: none;
+        border: 1px solid rgba(123,191,181,0.45); padding: 0.45rem 1.1rem;
+        transition: background 0.2s, color 0.2s;
+      " onmouseover="this.style.background='#7bbfb5'; this.style.color='#0d2233';" onmouseout="this.style.background='transparent'; this.style.color='#7bbfb5';">Contact</a>
+    </div>
+  </nav>
+
   <div class="hero__content">
     <span class="hero__eyebrow">SeaGlassPro · SF Bay Area · Consulting</span>
     <h1 class="hero__title">
@@ -655,9 +719,10 @@
       <div class="metaphor__img-wrap">
         <img
           class="metaphor__img"
-          src="https://i.pinimg.com/originals/a8/0c/14/a80c14e0f25d45d0e23b5b59c9e14a9f.jpg"
-          alt="Colorful sea glass pieces collected on a California beach"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Glass_Beach_Fort_Bragg_California_Jan_2012.jpg/1280px-Glass_Beach_Fort_Bragg_California_Jan_2012.jpg"
+          alt="Sea glass covering Glass Beach in Fort Bragg, California"
           loading="lazy"
+          onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #1a4a6b, #0d2233)'"
         />
         <div class="metaphor__glass-pane" aria-hidden="true"></div>
       </div>
@@ -825,9 +890,10 @@
       <div>
         <img
           class="experience__img"
-          src="https://c8.alamy.com/comp/2H3FMAM/pacific-ocean-washes-onto-rocks-in-northern-california-2H3FMAM.jpg"
-          alt="Pacific ocean waves washing over Northern California rocks"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Sonoma_coast_2012.jpg/1280px-Sonoma_coast_2012.jpg"
+          alt="Rocky Sonoma Coast shoreline, Northern California"
           loading="lazy"
+          onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #0a1e2e, #1a4a6b)'"
         />
       </div>
     </div>
