@@ -768,10 +768,21 @@
       }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      .shard, .hero__bg { animation: none; transition: none; }
+    .about-brody {
+      padding: 6rem 0;
+      background: var(--ocean-deep);
+      text-align: center;
     }
-  </style>
+    .about-brody__img {
+      width: 240px;
+      height: 240px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid var(--seafoam);
+      box-shadow: 0 0 20px rgba(123, 191, 181, 0.3);
+      margin-bottom: 2rem;
+    }
+
 </head>
 <body>
 
@@ -786,14 +797,6 @@
   <!-- NAV -->
   <nav class="nav-bar" aria-label="Site navigation">
     <a href="#" class="nav-bar__logo">
-      <!-- 1665 × 256 -->
-       <img src="images/SeaGlassPro_linear-F.png" style="
-        width: 333px;
-        height: 52px;
-        border-radius: 6px;
-        object-fit: cover;
-      " alt="SeaGlassPro Logo" />
-       <!-- old
       <img src="images/LinkedIn_Sq-SeaGlassPro1.jpg" style="
         width: 32px;
         height: 32px;
@@ -801,7 +804,6 @@
         object-fit: cover;
       " alt="SeaGlassPro Logo" />
       SeaGlassPro
-      -->
     </a>
     <div class="nav-bar__links">
       <a href="#about"      class="nav-bar__link">About</a>
@@ -820,7 +822,7 @@
       Every piece of glass<br>has a <em>story.</em><br>So does your stack.
     </h1>
     <p class="hero__sub">
-      Hi, I'm Brody. I welcome the opportunity to share my twenty plus years of experience, 
+      Hi, I am Brody. I welcome the opportunity to share my twenty plus years of experience, 
       to transform your projects into a unique product of tide and time.  Just like the way the ocean produces sea glass. 
     </p>
     <a href="#contact" class="hero__cta">Start the Tumble</a>
@@ -1115,6 +1117,14 @@
       <span class="industry-tag">Call Center Platforms</span>
       <span class="industry-tag">Search & Discovery</span>
     </div>
+  </div>
+</section>
+
+<!-- ── MEET BRODY ───────────────────────────────────────────────── -->
+<section class="about-brody" aria-label="Meet Brody">
+  <div class="wrap">
+    <img src="images/ProfileSeaGlassPro.jpg" class="about-brody__img" alt="Brody" />
+    <h2 class="section-title" style="text-align: center;">Meet Brody</h2>
   </div>
 </section>
 
