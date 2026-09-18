@@ -768,10 +768,21 @@
       }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      .shard, .hero__bg { animation: none; transition: none; }
+    .about-brody {
+      padding: 6rem 0;
+      background: var(--ocean-deep);
+      text-align: center;
     }
-  </style>
+    .about-brody__img {
+      width: 240px;
+      height: 240px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid var(--seafoam);
+      box-shadow: 0 0 20px rgba(123, 191, 181, 0.3);
+      margin-bottom: 2rem;
+    }
+
 </head>
 <body>
 
@@ -805,7 +816,6 @@
   <div class="hero__content">
     <div class="hero__banner-wrap">
       <img src="images/LinkedIn_banner1.jpeg" class="hero__banner-img" alt="Polished Sea Glass Shards" />
-      <img src="images/ProfileSeaGlassPro.jpg" class="hero__banner-img" alt="Brody" style="margin-top: 1rem; border-radius: 8px; max-height: 400px; width: auto; display: block; margin-left: auto; margin-right: auto;" />
     </div>
     <span class="hero__eyebrow">SeaGlassPro · SF Bay Area · Consulting</span>
     <h1 class="hero__title">
@@ -1107,6 +1117,14 @@
       <span class="industry-tag">Call Center Platforms</span>
       <span class="industry-tag">Search & Discovery</span>
     </div>
+  </div>
+</section>
+
+<!-- ── MEET BRODY ───────────────────────────────────────────────── -->
+<section class="about-brody" aria-label="Meet Brody">
+  <div class="wrap">
+    <img src="images/ProfileSeaGlassPro.jpg" class="about-brody__img" alt="Brody" />
+    <h2 class="section-title" style="text-align: center;">Meet Brody</h2>
   </div>
 </section>
 
