@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18511249803"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-18511249803');
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SeaGlassPro — Consulting for DevSecOps</title>
@@ -1150,7 +1158,7 @@
     <p class="contact__body">
       Bring me your rough edges — Let the ocean do the work and smooth it all out to polished sea glass. 
     </p>
-    <a href="mailto:brodytwo@gmail.com" class="contact__link">Get in Touch</a>
+    <a href="mailto:brodytwo@gmail.com" class="contact__link" onclick="gtag('event', 'conversion', {'send_to': 'AW-18511249803/contact_button'});">Get in Touch</a>
     <p style="margin-top: 2rem; font-size: 0.8rem; color: rgba(255,255,255,0.35); letter-spacing: 0.06em;">
       linkedin.com/in/jbbss &nbsp;·&nbsp; Novato, California
     </p>
@@ -1159,7 +1167,7 @@
 
 <div style="margin-top: 1rem;">
   <p style="font-size: 0.9rem;">
-    <a href="https://calendly.com/jbbss/one-on-one" style="color: #7bbfb5; text-decoration: none; border-bottom: 1px solid #7bbfb5;">
+    <a href="https://calendly.com/jbbss/one-on-one" style="color: #7bbfb5; text-decoration: none; border-bottom: 1px solid #7bbfb5;" onclick="gtag('event', 'conversion', {'send_to': 'AW-18511249803/calendly_link'});">
       Book a Free 1 Hour Consultation
     </a>
   </p>
