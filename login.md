@@ -50,7 +50,7 @@ Since the site is hosted as a static project on GitHub Pages, the connection to 
 #### 1. HTTPS (Transport Layer Security)
 Firebase SDKs communicate exclusively via HTTPS. All data sent between the browser and Firebase servers is encrypted in transit.
 
-#### 2. API Key Restrictions & Domain Whitelisting
+#### 2. API Key Restrictions & Domain Allowlisting
 The `apiKey` is a public identifier. Security is enforced via the **Authorized Domains** list in the Firebase Console. 
 - Firebase checks the `Origin` header of every request.
 - Requests from any domain not on the allowlist (e.g., a hacker's site) are rejected with a `403 Forbidden` error, even if they have the correct API key.
