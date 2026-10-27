@@ -37,6 +37,10 @@ Implement a multi-provider "Login" system (Google, Apple, and Microsoft) for the
 - [ ] **Client-Side Guard**:
     - Implement a JavaScript check at the top of the `<head>` to verify the user's authentication state before the body renders.
     - Redirect unauthenticated users back to `index.html` immediately.
+- [ ] **MVP Implementation**:
+    - The page will serve as a "Hello World" proof-of-concept.
+    - Display a welcome message: *"Hello, [User Name]! You have successfully logged in via [Provider]."*
+    - Provide a clear "Logout" button that clears the session and redirects to `index.html`.
 - [ ] **Token-Based Data**: Ensure any sensitive data displayed on this page is fetched from Firebase using the user's secure JWT, rather than hard-coded in HTML.
 
 ---
